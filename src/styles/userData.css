@@ -1,0 +1,51 @@
+/* UserData.css */
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Add margin to the top */
+}
+
+.profile-table th, .profile-table td {
+    border: 1px solid #ddd;
+    padding: 12px; /* Increase padding for better spacing */
+}
+
+.profile-table th {
+    background-color: #4CAF50; /* Change header background color */
+    color: white; /* Change header text color */
+    text-align: left;
+}
+
+.profile-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Add zebra striping for rows */
+}
+
+.profile-table tr:hover {
+    background-color: #ddd; /* Highlight row on hover */
+}
+
+h2 {
+    margin-bottom: 20px; /* Add margin below the heading */
+}
+
+button {
+    margin: 5px; /* Add margin around buttons */
+    padding: 10px 15px; /* Add padding for buttons */
+    background-color: #007BFF; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.filter-container {
+    margin-bottom: 20px; /* Add margin below filter options */
+    border: 1px solid #ddd; /* Add border around filter options */
+    padding: 15px; /* Add padding inside filter container */
+    border-radius: 5px; /* Rounded corners for filter container */
+    background-color: #f9f9f9; /* Light background for filter container */
+}

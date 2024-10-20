@@ -1,0 +1,72 @@
+   /* QuizForm.css */
+   .question-container {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3 {
+    margin-top: 0;
+  }
+
+  .quiz-form-container {
+    background-color: #f9f9f9; /* Light background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .question-container {
+    border: 1px solid #ccc; /* Border for each question */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: #fff; /* White background for questions */
+  }
+
+  /* New styles for correct answer option */
+  .correct-option {
+    background-color: #d4edda; /* Light green background for correct option */
+    border: 1px solid #c3e6cb; /* Green border */
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  button {
+    background-color: #007bff; /* Blue button color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  .modal {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal h2 {
+    color: white; /* White text for modal */
+  }
