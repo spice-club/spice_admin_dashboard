@@ -1,15 +1,17 @@
 import Cookies from "js-cookie";
 
-// New function to fetch user references
-export const fetchUserRefs = async (pageNumber: number): Promise<any> => {
+// Combined function to fetch user references with optional filters
+export const fetchUserRefs = async (pageNumber: number, filters?: object): Promise<any> => { // Added optional filters parameter
   try {
     const apiUrl = `${process.env.REACT_APP_Server_URL}/admin/userRef/user-referrals?page=${pageNumber}`; // Updated to use environment variable
     const token = Cookies.get('token'); // Retrieve the token from cookies
-    console.log('Fetching data from URL:', apiUrl); // Log the URL being used
     const response = await fetch(apiUrl, {
+      method: 'POST', // Always use POST method
       headers: {
+        'Content-Type': 'application/json', // Set the content type to JSON
         'Authorization': `Bearer ${token}`, // Include the Bearer token in the Authorization header
       },
+      body: JSON.stringify({ filters: filters }), // Pass filters directly as an object in the request body
     });
     if (!response.ok) {
       throw new Error(`Error fetching user references: ${response.statusText}`);
@@ -23,31 +25,6 @@ export const fetchUserRefs = async (pageNumber: number): Promise<any> => {
   }
 };
 
-// New function to fetch filtered user references
-export const fetchFilteredUserRefs = async (pageNumber: number, filters: object): Promise<any> => { // Changed filters type from any[] to object
-  try {
-    const apiUrl = `${process.env.REACT_APP_Server_URL}/admin/userRef/user-referralsF?page=${pageNumber}`; // Updated to use environment variable
-    const token = Cookies.get('token'); // Retrieve the token from cookies
-    const response = await fetch(apiUrl, {
-      method: 'POST', // Set the method to POST
-      headers: {
-        'Content-Type': 'application/json', // Set the content type to JSON
-        'Authorization': `Bearer ${token}`, // Include the Bearer token in the Authorization header
-      },
-      body: JSON.stringify({ filters: filters }), // Pass filters directly as an object in the request body
-    });
-    if (!response.ok) {
-      throw new Error(`Error fetching filtered user references: ${response.statusText}`);
-    }
-    
-    const data = await response.json();
-    console.log('Received filtered user references data:', data); // Log the received data
-    return data;
-  } catch (error) {
-    console.error('Error in fetchFilteredUserRefs:', error);
-    throw error;
-  }
-};
 
 // New function to update user referral code
 export const updateUserReferralCode = async (userId: string, newReferralCode: string): Promise<{ success: boolean, message: string }> => {

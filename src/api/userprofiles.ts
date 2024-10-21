@@ -1,15 +1,20 @@
 import Cookies from 'js-cookie';
 
-export const fetchProfiles = async (pageNumber: number): Promise<any> => {
+// Combined function to fetch profiles with optional filters
+export const fetchProfiles = async (pageNumber: number, filters?: object): Promise<any> => { // Changed filters type from any[] to object
     try {
-      const apiUrl = `${process.env.REACT_APP_Server_URL}/admin/users/profiles?page=${pageNumber}`; // Updated to use environment variable
+      console.log(filters)
+      const apiUrl = `${process.env.REACT_APP_Server_URL}/admin/users/profiles?page=${pageNumber}`; // Updated to use environment variable and adjust URL based on filters
       const token = Cookies.get('token'); // Retrieve the token from cookies
       console.log('Fetching data from URL:', apiUrl); // Log the URL being used
       const response = await fetch(apiUrl, {
+        method:  'POST' , // Use POST if filters are provided, otherwise GET
         headers: {
+          ...(filters ? { 'Content-Type': 'application/json' } : {}), // Set content type to JSON if filters are present
           'Authorization': `Bearer ${token}`, // Include the Bearer token in the Authorization header
         },
-      }); // Updated to use the stored URL
+        body: filters ? JSON.stringify({ filters }) : undefined, // Send filters in the body if present
+      });
       if (!response.ok) {
         throw new Error(`Error fetching profiles: ${response.statusText}`);
       }
@@ -22,29 +27,3 @@ export const fetchProfiles = async (pageNumber: number): Promise<any> => {
     }
   };
 
-// New function to fetch filtered profiles
-export const fetchFilteredProfiles = async (pageNumber: number, filters: object): Promise<any> => { // Changed filters type from any[] to object
-  try {
-    console.log("Clicked")
-    const apiUrl = `${process.env.REACT_APP_Server_URL}/admin/users/profilesF?page=${pageNumber}`; // Updated to use environment variable
-    const token = Cookies.get('token'); // Retrieve the token from cookies
-    const response = await fetch(apiUrl, {
-      method: 'POST', // Set the method to POST
-      headers: {
-        'Content-Type': 'application/json', // Set the content type to JSON
-        'Authorization': `Bearer ${token}`, // Include the Bearer token in the Authorization header
-      },
-      body: JSON.stringify({ filters: filters }),
-    });
-    if (!response.ok) {
-      throw new Error(`Error fetching filtered profiles: ${response.statusText}`);
-    }
-    
-    const data = await response.json();
-    console.log('Received filtered data:', data); // Log the received data
-    return data;
-  } catch (error) {
-    console.error('Error in fetchFilteredProfiles:', error);
-    throw error;
-  }
-};

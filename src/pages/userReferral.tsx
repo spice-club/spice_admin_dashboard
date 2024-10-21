@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchUserRefs, fetchFilteredUserRefs } from '../api/userRef'; // Import the new fetch functions
+import { fetchUserRefs } from '../api/userRef'; // Import the new fetch functions
 
 interface UserRef {
   referrer_user_id: number;
@@ -26,7 +26,7 @@ const UserReferrals: React.FC = () => {
       try {
         let data: UserRef[];
         if (Object.keys(filters).length > 0) {
-          data = await fetchFilteredUserRefs(pageNumber, filters); // Fetch filtered data
+          data = await fetchUserRefs(pageNumber, filters); // Fetch filtered data
         } else {
           data = await fetchUserRefs(pageNumber); // Fetch user references
         }

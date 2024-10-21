@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchProfiles, fetchFilteredProfiles } from '../api'; // Import the new function
+import { fetchProfiles } from '../api'; // Import the new function
 import '../styles/userData.css'; // Import CSS for styling
 
 interface Profile {
@@ -36,7 +36,7 @@ const UserData: React.FC = () => {
   useEffect(() => {
     const loadFilteredProfiles = async () => {
       try {
-        const data = await fetchFilteredProfiles(page, filters); // Swap the order of arguments
+        const data = await fetchProfiles(page, filters); // Swap the order of arguments
         setProfiles(data);
         setHasMore(data.length > 0);
       } catch (error) {
