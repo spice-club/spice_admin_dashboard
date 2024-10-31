@@ -1,9 +1,9 @@
 import Cookies from "js-cookie";
-
+const token=Cookies.get('token')
 // Function to send notification to a single user
 export const sendNotificationToSingleUser = async (userId: string, title: string, body: string) => {
   console.log(`Attempting to send notification to user ${userId}`);
-  const token=Cookies.get('token')
+
   try {
     const response = await fetch(`${process.env.REACT_APP_Server_URL}/admin/notification/notify/${userId}`, {
       method: 'POST',
@@ -37,6 +37,7 @@ export const sendNotificationToUserList = async (userIds: string[], title: strin
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ userIds, title, body }),
     });
@@ -64,6 +65,7 @@ export const sendNotificationToAllUsers = async (title: string, body: string) =>
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ title, body }),
     });
