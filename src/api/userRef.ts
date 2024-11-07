@@ -29,7 +29,7 @@ export const fetchUserRefs = async (pageNumber: number, filters?: object): Promi
 // New function to update user referral code
 export const updateUserReferralCode = async (userId: string, newReferralCode: string): Promise<{ success: boolean, message: string }> => {
   try {
-    const apiUrl = `${process.env.REACT_APP_Server_URL}/admin/userRef/update_ref`; // Updated to use environment variable
+    const apiUrl = `${process.env.REACT_APP_Server_URL}/admin/userRef/user-referrals/${userId}`; // Updated to use environment variable
     const token = Cookies.get('token'); // Retrieve the token from cookies
   
     
@@ -39,7 +39,7 @@ export const updateUserReferralCode = async (userId: string, newReferralCode: st
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`, // Include the Bearer token in the Authorization header
       },
-      body: JSON.stringify({ userId, newReferralCode }),
+      body: JSON.stringify({  newReferralCode }),
     });
 
     console.log(`Response status: ${response.status} ${response.statusText}`);
