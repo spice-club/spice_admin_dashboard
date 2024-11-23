@@ -9,6 +9,7 @@ import CRC from './pages/crc'
 import Quizform from './pages/makeQuiz'
 import PrivateRoute from './components/privateRoute';
 import './App.css'; // Importing a CSS file for styles
+import ReferrerStatsPage from './pages/referrerStats';
 
 const App: React.FC = () => {
   return (
@@ -98,6 +99,20 @@ const App: React.FC = () => {
           >
             Quiz Form
           </Link>
+          <Link
+            to="/referrer_stats"
+            style={{
+              margin: '0 15px',
+              color: '#2980b9',
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              fontSize: '18px',
+              borderRight: '2px solid black',
+              paddingRight: '15px'
+            }}
+          >
+            Referrer Stats
+          </Link>
         </nav>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -106,6 +121,7 @@ const App: React.FC = () => {
           <Route path="/crc" element={<PrivateRoute component={CRC} />} />
           <Route path="/sendNoti" element={<PrivateRoute component={sendNoti} />} />
           <Route path="/quizForm" element={<PrivateRoute component={Quizform} />} />
+          <Route path="/referrer_stats" element={<PrivateRoute component={ReferrerStatsPage} />} />
           <Route path="/" element={<Navigate to="/login" />} />
         </Routes>
       </div>
