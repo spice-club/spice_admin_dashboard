@@ -75,11 +75,11 @@ const UserReferrals: React.FC = () => {
   };
 
   return (
-    <div className="max-w-[90rem] mx-auto my-12 p-8 rounded-3xl relative overflow-hidden">
+    <div className="max-w-[90rem] mx-auto my-4 sm:my-12 p-4 sm:p-8 rounded-3xl relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl" />
 
       <div className="relative">
-        <h2 className="text-4xl font-bold mb-8 text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-8 text-center">
           <span
             className="bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent 
             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
@@ -88,10 +88,12 @@ const UserReferrals: React.FC = () => {
           </span>
         </h2>
 
-        {/* Filter Section */}
-        <div className="mb-8 space-y-4">
+        <div className="mb-4 sm:mb-8 space-y-3 sm:space-y-4">
           {filterOptions.map((option, index) => (
-            <div key={index} className="flex gap-4">
+            <div
+              key={index}
+              className="flex flex-col sm:flex-row gap-2 sm:gap-4"
+            >
               <select
                 value={option.filter}
                 onChange={(e) => {
@@ -164,66 +166,71 @@ const UserReferrals: React.FC = () => {
         )}
 
         {/* Referrals Table */}
-        <div className="overflow-x-auto rounded-xl bg-slate-900/80 border border-white/10 shadow-xl">
-          <table className="w-full whitespace-nowrap">
-            <thead>
-              <tr className="border-b border-white/20 bg-slate-800/90">
-                <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-black min-w-[80px]">
-                  No.
-                </th>
-                <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-black min-w-[200px]">
-                  Referrer User ID
-                </th>
-                <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-black min-w-[200px]">
-                  Referrer Name
-                </th>
-                <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-black min-w-[200px]">
-                  Referee User ID
-                </th>
-                <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-black min-w-[200px]">
-                  Referee Name
-                </th>
-                <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-black min-w-[200px]">
-                  Created At
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/10">
-              {userRefs.length > 0 ? (
-                userRefs.map((userRef, index) => (
-                  <tr
-                    key={`${userRef.referrer_user_id}-${userRef.referee_user_id}`}
-                    className="hover:bg-slate-800/50 transition-colors duration-200"
-                  >
-                    <td className="px-6 py-4 text-sm text-white">
-                      {index + 1 + (pageNumber - 1) * 100}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-white font-mono">
-                      {userRef.referrer_user_id}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-white font-medium">
-                      {userRef.referrer_name}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-white font-mono">
-                      {userRef.referee_user_id}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-white">
-                      {userRef.referee_name}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-white">
-                      {new Date(userRef.created_at).toLocaleString()}
+        <div className="overflow-x-auto rounded-xl bg-slate-900/80 border border-white/10 shadow-xl -mx-4 sm:mx-0">
+          <div className="min-w-[800px] sm:min-w-[1200px]">
+            <table className="w-full whitespace-nowrap">
+              <thead>
+                <tr className="border-b border-white/20 bg-slate-700/50">
+                  <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-gray-100">
+                    No.
+                  </th>
+                  <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-gray-100">
+                    Referrer User ID
+                  </th>
+                  <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-gray-100">
+                    Referrer Name
+                  </th>
+                  <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-gray-100">
+                    Referee User ID
+                  </th>
+                  <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-gray-100">
+                    Referee Name
+                  </th>
+                  <th className="sticky top-0 px-6 py-5 text-left text-sm font-semibold text-gray-100 min-w-[200px]">
+                    Created At
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                {userRefs.length > 0 ? (
+                  userRefs.map((userRef, index) => (
+                    <tr
+                      key={`${userRef.referrer_user_id}-${userRef.referee_user_id}`}
+                      className="hover:bg-white/5 transition-colors duration-200"
+                    >
+                      <td className="px-6 py-4 text-sm text-gray-200">
+                        {index + 1 + (pageNumber - 1) * 100}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-200">
+                        {userRef.referrer_user_id}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-200 font-medium">
+                        {userRef.referrer_name}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-200">
+                        {userRef.referee_user_id}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-200">
+                        {userRef.referee_name}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-200">
+                        {new Date(userRef.created_at).toLocaleString()}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={6}
+                      className="px-6 py-8 text-center text-gray-400"
+                    >
+                      No referrals found.
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={6} className="px-6 py-8 text-center text-gray-400">
-                    No referrals found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Pagination Controls */}

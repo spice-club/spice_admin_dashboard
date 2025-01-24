@@ -69,11 +69,11 @@ const UserData: React.FC = () => {
   };
 
   return (
-    <div className="max-w-[90rem] mx-auto my-12 p-8 rounded-3xl relative overflow-hidden">
+    <div className="max-w-[90rem] mx-auto my-4 sm:my-12 p-4 sm:p-8 rounded-3xl relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl" />
 
       <div className="relative">
-        <h2 className="text-4xl font-bold mb-8 text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-8 text-center">
           <span
             className="bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent 
             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
@@ -82,7 +82,7 @@ const UserData: React.FC = () => {
           </span>
         </h2>
 
-        <div className="mb-8 space-y-4">
+        <div className="mb-4 sm:mb-8 space-y-3 sm:space-y-4">
           {filterOptions.map((option, index) => (
             <div key={index} className="flex gap-4">
               <select
@@ -137,8 +137,8 @@ const UserData: React.FC = () => {
           </div>
         </div>
 
-        <div className="overflow-x-auto rounded-xl bg-slate-900/80 border border-white/10 shadow-xl">
-          <div className="min-w-[1200px]">
+        <div className="overflow-x-auto rounded-xl bg-slate-900/80 border border-white/10 shadow-xl -mx-4 sm:mx-0">
+          <div className="min-w-[800px] sm:min-w-[1200px]">
             <table className="w-full whitespace-nowrap">
               <thead>
                 <tr className="border-b border-white/20 bg-slate-800/90">

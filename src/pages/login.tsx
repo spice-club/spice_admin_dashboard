@@ -1,9 +1,8 @@
 // src/pages/Login.tsx
 import { MeshDistortMaterial, OrbitControls, Sphere } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { AnimatePresence, motion } from "framer-motion";
 import { Lock, Sparkle, SpinnerGap, User } from "phosphor-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -33,7 +32,7 @@ const AnimatedInput = ({ icon: Icon, ...props }: AnimatedInputProps) => {
       />
       <div
         className={`absolute inset-0 -z-10 bg-purple-500/20 rounded-xl blur-xl ${
-          isFocused ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
+          isFocused ? "opacity-100 scale-100" : "opacity-0 scale-0"
         } transition-all duration-300`}
       />
     </div>
@@ -41,12 +40,18 @@ const AnimatedInput = ({ icon: Icon, ...props }: AnimatedInputProps) => {
 };
 
 const Login: React.FC = () => {
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/user-referrals");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

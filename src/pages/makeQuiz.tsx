@@ -159,15 +159,19 @@ const QuizForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto my-12 p-8 rounded-3xl relative overflow-hidden">
+    <div className="max-w-6xl mx-auto my-4 sm:my-12 p-4 sm:p-8 rounded-3xl relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl" />
 
       <div className="relative">
-        <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8 text-center bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
           Quiz Data Entry Form
-        </h1>
+        </h2>
 
-        <form id="quizForm" onSubmit={handleSubmit} className="space-y-8">
+        <form
+          id="quizForm"
+          onSubmit={handleSubmit}
+          className="space-y-4 sm:space-y-8"
+        >
           <div className="space-y-4">
             <label htmlFor="name" className="block text-gray-200 font-medium">
               Quiz Name:
@@ -183,11 +187,11 @@ const QuizForm: React.FC = () => {
             />
           </div>
 
-          <div id="questionsContainer" className="space-y-8">
+          <div id="questionsContainer" className="space-y-6 sm:space-y-8">
             {questions.map((question, index) => (
               <div
                 key={question.id}
-                className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4"
+                className="p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3 sm:space-y-4"
               >
                 <div className="flex justify-between items-center">
                   <h3 className="text-xl font-medium text-gray-200">
@@ -215,7 +219,7 @@ const QuizForm: React.FC = () => {
                 />
 
                 {/* Options */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {question.options.map((option, optionIndex) => (
                     <input
                       key={optionIndex}

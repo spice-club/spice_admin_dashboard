@@ -83,15 +83,15 @@ const SendNoti: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto my-12 p-8 rounded-3xl relative overflow-hidden">
+    <div className="max-w-6xl mx-auto my-4 sm:my-12 p-4 sm:p-8 rounded-3xl relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl" />
 
       <div className="relative">
-        <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8 text-center bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
           Send Notification
         </h2>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
             <label className="block text-gray-200 font-medium">
               Notification Type
@@ -159,8 +159,8 @@ const SendNoti: React.FC = () => {
           )}
 
           {notificationType === "list" && (
-            <div className="space-y-4">
-              <div className="flex gap-4">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                 <input
                   type="text"
                   value={newUser}

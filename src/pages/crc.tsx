@@ -31,15 +31,15 @@ const ChangeReferralCodePage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto my-12 p-8 rounded-3xl relative overflow-hidden">
+    <div className="max-w-2xl mx-auto my-4 sm:my-12 p-4 sm:p-8 rounded-3xl relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl" />
 
       <div className="relative">
-        <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8 text-center bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
           Change User Referral Code
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
             <label htmlFor="userId" className="block text-gray-200 font-medium">
               User ID:
