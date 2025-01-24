@@ -1,6 +1,6 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import '../styles/makeQuiz.css'; // Import the new CSS file
-import { postQuiz } from '../api'; // Import the postQuiz function
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { postQuiz } from "../api"; // Import the postQuiz function
+import "../styles/makeQuiz.css"; // Import the new CSS file
 
 interface Question {
   id: number; // Changed from string to number for sequential IDs
@@ -25,7 +25,7 @@ interface QuizData {
 const QuizForm: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [jsonOutput, setJsonOutput] = useState<string>('');
+  const [jsonOutput, setJsonOutput] = useState<string>("");
   const [nextId, setNextId] = useState<number>(1); // Added state for sequential IDs
 
   // Removed useEffect to start with no questions initially
@@ -34,9 +34,9 @@ const QuizForm: React.FC = () => {
   const addQuestion = () => {
     const newQuestion: Question = {
       id: nextId, // Assign the current nextId as the question ID
-      options: ['', '', '', ''],
+      options: ["", "", "", ""],
       earnings: 0,
-      question: '',
+      question: "",
       correctOptionIndex: null, // Initialize as null
     };
     setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
@@ -51,12 +51,12 @@ const QuizForm: React.FC = () => {
     optionIndex?: number
   ) => {
     const updatedQuestions = [...questions];
-    if (field === 'options' && optionIndex !== undefined) {
+    if (field === "options" && optionIndex !== undefined) {
       updatedQuestions[index].options[optionIndex] = e.target.value;
-    } else if (field === 'earnings') {
+    } else if (field === "earnings") {
       const parsedValue = parseInt(e.target.value, 10);
       updatedQuestions[index][field] = isNaN(parsedValue) ? 0 : parsedValue;
-    } else if (field === 'question') {
+    } else if (field === "question") {
       updatedQuestions[index][field] = e.target.value;
     }
     setQuestions(updatedQuestions);
@@ -66,7 +66,9 @@ const QuizForm: React.FC = () => {
   const handleCorrectOptionChange = (index: number, value: string) => {
     const updatedQuestions = [...questions];
     const optionIndex = parseInt(value, 10);
-    updatedQuestions[index].correctOptionIndex = isNaN(optionIndex) ? null : optionIndex;
+    updatedQuestions[index].correctOptionIndex = isNaN(optionIndex)
+      ? null
+      : optionIndex;
     setQuestions(updatedQuestions);
   };
 
@@ -77,18 +79,20 @@ const QuizForm: React.FC = () => {
     const formData = new FormData(form);
 
     // Extracting form fields
-    const name = formData.get('name') as string;
-    const category = formData.get('category') as string;
-    const difficulty = formData.get('difficulty') as string;
-    const liveAtDateInput = formData.get('liveAtDate') as string;
+    const name = formData.get("name") as string;
+    const category = formData.get("category") as string;
+    const difficulty = formData.get("difficulty") as string;
+    const liveAtDateInput = formData.get("liveAtDate") as string;
 
     // Validate and parse the date
     const istDate = new Date(liveAtDateInput);
     if (isNaN(istDate.getTime())) {
-      alert('Invalid date format. Please enter a valid date.');
+      alert("Invalid date format. Please enter a valid date.");
       return;
     }
-    const utcDate = new Date(istDate.getTime() - istDate.getTimezoneOffset() * 60000);
+    const utcDate = new Date(
+      istDate.getTime() - istDate.getTimezoneOffset() * 60000
+    );
     const live_at_date = utcDate.toISOString(); // Updated key name
 
     // Validate that each question has a correct option selected
@@ -128,11 +132,11 @@ const QuizForm: React.FC = () => {
     try {
       // Call postQuiz and handle the response
       const response = await postQuiz(quizData);
-      console.log('Quiz posted successfully:', response);
-      alert('Quiz posted successfully!');
+      console.log("Quiz posted successfully:", response);
+      alert("Quiz posted successfully!");
     } catch (error) {
-      console.error('Failed to post quiz:', error);
-      alert('Failed to post quiz. Please try again.');
+      console.error("Failed to post quiz:", error);
+      alert("Failed to post quiz. Please try again.");
     }
   };
 
@@ -146,116 +150,192 @@ const QuizForm: React.FC = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(jsonOutput).then(
       () => {
-        alert('JSON copied to clipboard!');
+        alert("JSON copied to clipboard!");
       },
       (err) => {
-        alert('Failed to copy JSON: ' + err);
+        alert("Failed to copy JSON: " + err);
       }
     );
   };
 
   return (
-    <div className="quiz-form-container">
-      <h1>Quiz Data Entry Form</h1>
-      <form id="quizForm" onSubmit={handleSubmit}>
-        <label htmlFor="name">Quiz Name:</label>
-        <input type="text" id="name" name="name" required />
+    <div className="max-w-6xl mx-auto my-12 p-8 rounded-3xl relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl" />
 
-        <h2>Questions</h2>
-        <div id="questionsContainer">
-          {questions.map((question, index) => (
-            <div key={question.id} className="question-block">
-              <label htmlFor={`q${index + 1}`}>Question {index + 1}:</label>
+      <div className="relative">
+        <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Quiz Data Entry Form
+        </h1>
+
+        <form id="quizForm" onSubmit={handleSubmit} className="space-y-8">
+          <div className="space-y-4">
+            <label htmlFor="name" className="block text-gray-200 font-medium">
+              Quiz Name:
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl 
+                text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 
+                focus:ring-purple-500/50 focus:border-transparent transition-all duration-300"
+            />
+          </div>
+
+          <div id="questionsContainer" className="space-y-8">
+            {questions.map((question, index) => (
+              <div
+                key={question.id}
+                className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4"
+              >
+                <div className="flex justify-between items-center">
+                  <h3 className="text-xl font-medium text-gray-200">
+                    Question {index + 1}
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => removeQuestion(question.id)}
+                    className="px-4 py-2 bg-red-500/20 text-red-300 rounded-xl hover:bg-red-500/30 
+                      transition-all duration-300"
+                  >
+                    Remove
+                  </button>
+                </div>
+
+                {/* Question input */}
+                <input
+                  type="text"
+                  value={question.question}
+                  onChange={(e) => handleInputChange(e, index, "question")}
+                  placeholder="Enter question"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl 
+                    text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 
+                    focus:ring-purple-500/50 focus:border-transparent transition-all duration-300"
+                />
+
+                {/* Options */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {question.options.map((option, optionIndex) => (
+                    <input
+                      key={optionIndex}
+                      type="text"
+                      value={option}
+                      onChange={(e) =>
+                        handleInputChange(e, index, "options", optionIndex)
+                      }
+                      placeholder={`Option ${optionIndex + 1}`}
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl 
+                        text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 
+                        focus:ring-purple-500/50 focus:border-transparent transition-all duration-300"
+                    />
+                  ))}
+                </div>
+
+                {/* Correct option selector */}
+                <select
+                  value={
+                    question.correctOptionIndex !== null
+                      ? question.correctOptionIndex.toString()
+                      : ""
+                  }
+                  onChange={(e) =>
+                    handleCorrectOptionChange(index, e.target.value)
+                  }
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl 
+                    text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500/50 
+                    focus:border-transparent transition-all duration-300"
+                >
+                  <option value="">Select Correct Option</option>
+                  {question.options.map((_, optionIndex) => (
+                    <option key={optionIndex} value={optionIndex}>
+                      Option {optionIndex + 1}
+                    </option>
+                  ))}
+                </select>
+
+                {/* Earnings input */}
+                <input
+                  type="number"
+                  value={question.earnings}
+                  onChange={(e) => handleInputChange(e, index, "earnings")}
+                  placeholder="Earnings"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl 
+                    text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 
+                    focus:ring-purple-500/50 focus:border-transparent transition-all duration-300"
+                />
+              </div>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={addQuestion}
+            className="w-full py-3 px-6 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 
+              rounded-xl text-white font-medium shadow-lg hover:shadow-purple-500/25 
+              transition-all duration-300 hover:opacity-90"
+          >
+            Add Question
+          </button>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
+              <label className="block text-gray-200 font-medium">
+                Category:
+              </label>
               <input
                 type="text"
-                id={`q${index + 1}`}
-                name={`q${index + 1}`}
-                value={question.question}
-                onChange={(e) => handleInputChange(e, index, 'question')}
+                name="category"
                 required
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl 
+                  text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 
+                  focus:ring-purple-500/50 focus:border-transparent transition-all duration-300"
               />
-
-              {question.options.map((option, optionIndex) => (
-                <div key={optionIndex} className="option-block">
-                  <label htmlFor={`q${index + 1}o${optionIndex + 1}`}>Option {optionIndex + 1}:</label>
-                  <input
-                    type="text"
-                    id={`q${index + 1}o${optionIndex + 1}`}
-                    name={`q${index + 1}o${optionIndex + 1}`}
-                    value={option}
-                    onChange={(e) => handleInputChange(e, index, 'options', optionIndex)}
-                    required
-                  />
-                </div>
-              ))}
-
-              <label htmlFor={`q${index + 1}correct`}>Select Correct Option:</label>
-              <select
-                id={`q${index + 1}correct`}
-                name={`q${index + 1}correct`}
-                value={question.correctOptionIndex !== null ? question.correctOptionIndex.toString() : ''}
-                onChange={(e) => handleCorrectOptionChange(index, e.target.value)}
-                required
-              >
-                <option value="">Select Correct Option</option>
-                {question.options.map((option, optionIndex) => (
-                  <option key={optionIndex} value={optionIndex}>
-                    Option {optionIndex + 1}
-                  </option>
-                ))}
-              </select>
-
-              <label htmlFor={`q${index + 1}earnings`}>Earnings:</label>
-              <input
-                type="number"
-                id={`q${index + 1}earnings`}
-                name={`q${index + 1}earnings`}
-                value={question.earnings}
-                onChange={(e) => handleInputChange(e, index, 'earnings')}
-                required
-              />
-              <button type="button" onClick={() => removeQuestion(question.id)}>
-                Remove Question
-              </button>
             </div>
-          ))}
-        </div>
-        <button type="button" onClick={addQuestion}>
-          Add Question
-        </button>
 
-        <h2>Metadata</h2>
-        <label htmlFor="category">Category:</label>
-        <input type="text" id="category" name="category" required />
-
-        <label htmlFor="difficulty">Difficulty:</label>
-        <select id="difficulty" name="difficulty" required>
-          <option value="">Select Difficulty</option>
-          <option value="Easy">Easy</option>
-          <option value="Medium">Medium</option>
-          <option value="Hard">Hard</option>
-        </select>
-
-        <label htmlFor="liveAtDate">Live At Date (IST):</label>
-        <input type="datetime-local" id="liveAtDate" name="liveAtDate" required />
-
-        <button type="submit">Submit Quiz Data</button>
-      </form>
-      <div id="result"></div>
-
-      {/* The Modal */}
-      {modalVisible && (
-        <div id="jsonModal" className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setModalVisible(false)}>
-              &times;
-            </span>
-            <h2>Send this JSON</h2>
-            <pre id="jsonOutput">{jsonOutput}</pre>
-            <button onClick={handleCopy}>Copy JSON</button>
+            <div className="space-y-4">
+              <label className="block text-gray-200 font-medium">
+                Difficulty:
+              </label>
+              <select
+                name="difficulty"
+                required
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl 
+                  text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500/50 
+                  focus:border-transparent transition-all duration-300"
+              >
+                <option value="">Select Difficulty</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
           </div>
-        </div>
-      )}
+
+          <div className="space-y-4">
+            <label className="block text-gray-200 font-medium">
+              Live At Date (IST):
+            </label>
+            <input
+              type="datetime-local"
+              name="liveAtDate"
+              required
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl 
+                text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500/50 
+                focus:border-transparent transition-all duration-300"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-4 px-6 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 
+              rounded-xl text-white font-medium shadow-lg hover:shadow-purple-500/25 
+              transition-all duration-300 hover:opacity-90"
+          >
+            Submit Quiz
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
