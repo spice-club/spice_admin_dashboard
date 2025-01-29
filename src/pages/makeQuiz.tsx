@@ -27,6 +27,7 @@ const QuizForm: React.FC = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [jsonOutput, setJsonOutput] = useState<string>("");
   const [nextId, setNextId] = useState<number>(1); // Added state for sequential IDs
+  const [isLoading, setIsLoading] = useState<boolean>(false); // State to track loading status
 
   // Removed useEffect to start with no questions initially
 
@@ -75,6 +76,17 @@ const QuizForm: React.FC = () => {
   // Function to handle form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Show confirmation dialog
+    const isConfirmed = window.confirm(
+      "Are you sure you want to submit the quiz?"
+    );
+    if (!isConfirmed) {
+      return; // Exit if the user cancels
+    }
+
+    setIsLoading(true); // Set loading to true
+
     const form = e.currentTarget;
     const formData = new FormData(form);
 
@@ -88,6 +100,7 @@ const QuizForm: React.FC = () => {
     const istDate = new Date(liveAtDateInput);
     if (isNaN(istDate.getTime())) {
       alert("Invalid date format. Please enter a valid date.");
+      setIsLoading(false);
       return;
     }
     const utcDate = new Date(
@@ -104,6 +117,7 @@ const QuizForm: React.FC = () => {
         q.correctOptionIndex >= q.options.length
       ) {
         alert(`Please select a correct option for Question ${i + 1}.`);
+        setIsLoading(false);
         return;
       }
     }
@@ -137,6 +151,8 @@ const QuizForm: React.FC = () => {
     } catch (error) {
       console.error("Failed to post quiz:", error);
       alert("Failed to post quiz. Please try again.");
+    } finally {
+      setIsLoading(false); // Set loading to false after API call completes
     }
   };
 
@@ -160,6 +176,13 @@ const QuizForm: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto my-4 sm:my-12 p-4 sm:p-8 rounded-3xl relative overflow-hidden">
+      {/* Loading indicator */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="text-white">Loading...</div>
+        </div>
+      )}
+
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl" />
 
       <div className="relative">
